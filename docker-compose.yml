@@ -1,0 +1,23 @@
+version: '1'
+services:
+  database:
+    container_name: my-db
+    image: mysql:8.2.0
+    environment:
+      - "MYSQL_ROOT_PASSWORD=mypass123"
+  phpmyadmin:
+    container_name: my-own-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=mypass123"
+      - "PMA_HOST=my-db"
+  api:
+    container_name: my-api
+    build: .
+    ports:
+      - "8887:80"
+    environment:
+      - "MYSQL_HOST=my-db"
+      - "MYSQL_PASSWORD=mypass123"
